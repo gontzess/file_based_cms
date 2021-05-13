@@ -1,0 +1,17 @@
+---
+- !ruby/object:User
+  username: developer
+  password_hash: !ruby/string:BCrypt::Password
+    str: "$2a$12$d.0qvTOuj1Wy0nDW7GQU8e2kA3n5BD24.Fl3jEuNxJDr4OXlYE79S"
+    version: 2a
+    cost: 12
+    salt: "$2a$12$d.0qvTOuj1Wy0nDW7GQU8e"
+    checksum: 2kA3n5BD24.Fl3jEuNxJDr4OXlYE79S
+- !ruby/object:User
+  username: developer1
+  password_hash: !ruby/string:BCrypt::Password
+    str: "$2a$12$8UHzdadMdNlIK/WG4A8QzObMLKCpA5oseRQfsXn0f/bIx7CrEBEJu"
+    version: 2a
+    cost: 12
+    salt: "$2a$12$8UHzdadMdNlIK/WG4A8QzO"
+    checksum: bMLKCpA5oseRQfsXn0f/bIx7CrEBEJu

@@ -1,0 +1,50 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    bcrypt (3.1.16)
+    erubis (2.7.0)
+    minitest (5.14.4)
+    multi_json (1.15.0)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
+    nio4r (2.5.7)
+    puma (5.3.0)
+      nio4r (~> 2.0)
+    rack (2.2.3)
+    rack-protection (2.1.0)
+      rack
+    rack-test (1.1.0)
+      rack (>= 1.0, < 3)
+    redcarpet (3.5.1)
+    ruby2_keywords (0.0.4)
+    sinatra (2.1.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
+      tilt (~> 2.0)
+    sinatra-contrib (2.1.0)
+      multi_json
+      mustermann (~> 1.0)
+      rack-protection (= 2.1.0)
+      sinatra (= 2.1.0)
+      tilt (~> 2.0)
+    tilt (2.0.10)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  bcrypt
+  erubis
+  minitest
+  puma
+  rack-test
+  redcarpet
+  sinatra
+  sinatra-contrib
+
+RUBY VERSION
+   ruby 3.0.1p64
+
+BUNDLED WITH
+   2.2.15

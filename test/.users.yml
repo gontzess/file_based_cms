@@ -1,0 +1,9 @@
+---
+- !ruby/object:User
+  username: admin
+  password_hash: !ruby/string:BCrypt::Password
+    str: "$2a$12$5m852/5sVU13IDeBgIva3OCkV7zF47GP3DWjr6kUkrYqmlf6dIN7G"
+    version: 2a
+    cost: 12
+    salt: "$2a$12$5m852/5sVU13IDeBgIva3O"
+    checksum: CkV7zF47GP3DWjr6kUkrYqmlf6dIN7G
