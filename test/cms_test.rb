@@ -210,14 +210,45 @@ class CMSTest < Minitest::Test
   end
 
   def test_viewing_new_user_form
-
+    get "/users/new"
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, "<input"
+    assert_includes last_response.body, %q(<button type="submit")
+    assert_nil session[:username]
   end
 
   def test_submitting_new_user_form_success
-    ## test password is hashed
+    original_accounts = YAML.load_file(credentials_path)
+
+    post "/users/create", username: "tester", password: "secret"
+    assert_equal 302, last_response.status
+    assert_equal "Account for tester has been created.", session[:message]
+    assert_equal "tester", session[:username]
+
+    get last_response["Location"]
+    assert_includes last_response.body, "Signed in as tester."
+
+    accounts = YAML.load_file(credentials_path)
+    assert_equal "tester", accounts[-1].username
+    refute_equal "secret", accounts[-1].password_hash
+    assert_equal true, accounts[-1].password_hash.is_a?(BCrypt::Password)
+
+    File.open(credentials_path, "w") do |file|
+      file.write(original_accounts.to_yaml)
+    end
   end
 
-  def test_submitting_new_user_form_bad_credentials
+  def test_submitting_new_user_form_empty_field
+    post "/users/create", username: "fred", password: ""
+    assert_equal 422, last_response.status
+    assert_nil session[:username]
+    assert_includes last_response.body, "A username and password is required."
+  end
 
+  def test_submitting_new_user_form_username_taken
+    post "/users/create", username: "admin", password: "secret"
+    assert_equal 422, last_response.status
+    assert_nil session[:username]
+    assert_includes last_response.body, "is already taken."
   end
 end

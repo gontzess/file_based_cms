@@ -1,6 +1,5 @@
 require "sinatra"
 require "sinatra/reloader" if development?
-# require "sinatra/content_for"
 require "tilt/erubis"
 require "redcarpet"
 require "yaml"
@@ -10,7 +9,6 @@ require_relative "user"
 configure do
   enable :sessions
   set :session_secret, "secret" ## normally wouldn't store env variable in code
-  # set :erb, :escape_html => true
 end
 
 def data_path
@@ -114,7 +112,7 @@ post "/create" do
 end
 
 get "/:filename" do
-  file_path = File.join(data_path, params[:filename])
+  file_path = File.join(data_path, File.basename(params[:filename]))
 
   if !File.exist?(file_path)
     session[:message] = "#{params[:filename]} does not exist."
@@ -127,7 +125,7 @@ end
 get "/:filename/edit" do
   require_signed_in_user
 
-  file_path = File.join(data_path, params[:filename])
+  file_path = File.join(data_path, File.basename(params[:filename]))
 
   if !File.exist?(file_path)
     session[:message] = "#{params[:filename]} does not exist."
@@ -142,7 +140,7 @@ end
 post "/:filename" do
   require_signed_in_user
 
-  file_path = File.join(data_path, params[:filename])
+  file_path = File.join(data_path, File.basename(params[:filename]))
 
   File.write(file_path, params[:new_content])
   session[:message] = "#{params[:filename]} has been updated."
@@ -152,7 +150,7 @@ end
 post "/:filename/delete" do
   require_signed_in_user
 
-  file_path = File.join(data_path, params[:filename])
+  file_path = File.join(data_path, File.basename(params[:filename]))
 
   File.delete(file_path)
   session[:message] = "#{params[:filename]} has been deleted."
